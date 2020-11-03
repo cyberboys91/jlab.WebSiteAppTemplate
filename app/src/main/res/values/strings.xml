@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TeVeo</string>
+    <string name="offline">Sin Conexión</string>
+    <string name="refresh">Reintentar</string>
+</resources>
