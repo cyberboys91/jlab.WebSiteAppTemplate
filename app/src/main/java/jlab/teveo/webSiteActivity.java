@@ -2,12 +2,10 @@ package jlab.teveo;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import java.util.ArrayList;
-
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.graphics.Bitmap;
 import android.view.WindowManager;
@@ -15,16 +13,17 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import jlab.teveo.view.CustomWebView;
+import android.view.SoundEffectConstants;
 import jlab.teveo.view.CustomSwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import jlab.teveo.view.VideoEnabledWebChromeClient;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 
-public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefreshLayout.CanChildScrollUpCallback{
+public class WebSiteActivity extends AppCompatActivity implements CustomSwipeRefreshLayout.CanChildScrollUpCallback{
 
     private CustomWebView wv;
-    private String URLS_LOADED_KEY = "URL_LOADED_KEY";
+    private String URLS_LOADED_KEY = "URLS_LOADED_KEY";
     private ArrayList<String> urlsLoaded = new ArrayList<>();
     private CustomSwipeRefreshLayout srlRefresh;
     private RelativeLayout llOffline;
@@ -64,13 +63,21 @@ public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefre
         srlRefresh.setCanChildScrollUpCallback(this);
         wv.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                String url2 = "https://teveo.cu/", url3 = "https://teveo.cu/user";
-                if (url != null && (url.startsWith(url2) && !url.startsWith(url3))) {
+                String url2 = getString(R.string.url_root);
+                String [] prefixs = getResources().getStringArray(R.array.prefix_url_not_linked);
+                if (url != null && (url.startsWith(url2) && !startWithAnyPrefix(prefixs, url))) {
                     urlsLoaded.add(url);
                     view.playSoundEffect(SoundEffectConstants.CLICK);
                     return false;
                 } else
                     return true;
+            }
+
+            private boolean startWithAnyPrefix(String [] prefixs, String str) {
+                for (String pref : prefixs)
+                    if(str.startsWith(pref))
+                        return true;
+                return false;
             }
 
             @Override
@@ -111,9 +118,7 @@ public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefre
                     attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                     getWindow().setAttributes(attrs);
                     if (android.os.Build.VERSION.SDK_INT >= 14)
-                    {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                    }
                 }
                 else
                 {
@@ -122,9 +127,7 @@ public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefre
                     attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                     getWindow().setAttributes(attrs);
                     if (android.os.Build.VERSION.SDK_INT >= 14)
-                    {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                    }
                 }
 
             }
@@ -133,7 +136,7 @@ public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefre
         if (savedInstanceState != null)
             urlsLoaded = savedInstanceState.getStringArrayList(URLS_LOADED_KEY);
         else
-            urlsLoaded.add("https://teveo.cu/live/video");
+            urlsLoaded.add(getString(R.string.url_initial));
         loadCurrentPage();
     }
 

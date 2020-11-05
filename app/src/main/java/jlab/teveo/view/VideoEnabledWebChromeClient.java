@@ -1,15 +1,15 @@
 package jlab.teveo.view;
 
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnErrorListener;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebChromeClient;
+import android.view.SurfaceView;
+import android.media.MediaPlayer;
 import android.widget.FrameLayout;
+import android.webkit.WebChromeClient;
+import android.view.ViewGroup.LayoutParams;
+import android.media.MediaPlayer.OnErrorListener;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.media.MediaPlayer.OnCompletionListener;
 
 /**
  * This class serves as a WebChromeClient to be set to a WebView, allowing it to play video.
