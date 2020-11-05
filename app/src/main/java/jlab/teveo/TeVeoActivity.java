@@ -2,6 +2,7 @@ package jlab.teveo;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import java.util.ArrayList;
 
@@ -51,9 +52,9 @@ public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefre
         llOffline = (RelativeLayout) findViewById(R.id.rlOffline);
         srlRefresh = (CustomSwipeRefreshLayout) findViewById(R.id.srlRefresh);
         srlRefresh.setProgressViewOffset(false, 80, 120);
-        srlRefresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryDark),
+        srlRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent),
                 getResources().getColor(R.color.colorPrimary),
-                getResources().getColor(R.color.colorAccent));
+                getResources().getColor(R.color.colorPrimaryDark));
         srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -66,6 +67,7 @@ public class TeVeoActivity extends AppCompatActivity implements CustomSwipeRefre
                 String url2 = "https://teveo.cu/", url3 = "https://teveo.cu/user";
                 if (url != null && (url.startsWith(url2) && !url.startsWith(url3))) {
                     urlsLoaded.add(url);
+                    view.playSoundEffect(SoundEffectConstants.CLICK);
                     return false;
                 } else
                     return true;
