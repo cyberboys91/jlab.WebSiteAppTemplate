@@ -1,3 +1,3 @@
-# jlab.TeVeo
+# jlab.WebSiteAppTemplate
 
-Android App for web site : https://teveo.cu/
+Android App Template for web site
