@@ -13,11 +13,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import jlab.website.view.CustomWebView;
+import android.support.v4.util.ArrayMap;
 import android.view.SoundEffectConstants;
-import jlab.website.view.CustomSwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import jlab.website.view.VideoEnabledWebChromeClient;
+import jlab.website.view.CustomSwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import jlab.website.view.VideoEnabledWebChromeClient;
 
 
 public class WebSiteActivity extends AppCompatActivity implements CustomSwipeRefreshLayout.CanChildScrollUpCallback{
@@ -62,6 +63,7 @@ public class WebSiteActivity extends AppCompatActivity implements CustomSwipeRef
         });
         srlRefresh.setCanChildScrollUpCallback(this);
         wv.setWebViewClient(new WebViewClient() {
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 String url2 = getString(R.string.url_root);
                 String [] prefixs = getResources().getStringArray(R.array.prefix_url_not_linked);
@@ -94,6 +96,7 @@ public class WebSiteActivity extends AppCompatActivity implements CustomSwipeRef
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                //Delete ads
                 view.loadUrl("javascript:(function() {\n" +
                         "  var x = document.getElementsByClassName(\"adsbygoogle\");\n" +
                         "  var i = 0;\n" +
@@ -162,7 +165,9 @@ public class WebSiteActivity extends AppCompatActivity implements CustomSwipeRef
     }
 
     private void loadCurrentPage () {
-        wv.loadUrl(urlsLoaded.get(urlsLoaded.size() - 1));
+        ArrayMap<String, String> extraHeaders = new ArrayMap<>();
+//        extraHeaders.put("Accept-Language", Locale.getDefault().toLanguageTag());
+        wv.loadUrl(urlsLoaded.get(urlsLoaded.size() - 1), extraHeaders);
     }
 
     @Override
