@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">TeVeo</string>
+    <string name="app_name">FilmAffinity</string>
     <string name="offline">Sin Conexión</string>
     <string name="refresh">Reintentar</string>
-    <string name="url_root">https://teveo.cu</string>
-    <string name="url_initial">https://teveo.cu/live/video</string>
+    <string name="url_root">https://m.filmaffinity.com</string>
+    <string name="url_initial">https://m.filmaffinity.com</string>
     <string-array name="prefix_url_not_linked">
-        <item>https://teveo.cu/user</item>
     </string-array>
 </resources>

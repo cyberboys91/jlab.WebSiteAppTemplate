@@ -1,4 +1,4 @@
-package jlab.teveo;
+package jlab.website;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -12,11 +12,11 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
-import jlab.teveo.view.CustomWebView;
+import jlab.website.view.CustomWebView;
 import android.view.SoundEffectConstants;
-import jlab.teveo.view.CustomSwipeRefreshLayout;
+import jlab.website.view.CustomSwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import jlab.teveo.view.VideoEnabledWebChromeClient;
+import jlab.website.view.VideoEnabledWebChromeClient;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 
@@ -89,6 +89,17 @@ public class WebSiteActivity extends AppCompatActivity implements CustomSwipeRef
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 llOffline.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                view.loadUrl("javascript:(function() {\n" +
+                        "  var x = document.getElementsByClassName(\"adsbygoogle\");\n" +
+                        "  var i = 0;\n" +
+                        "  for(; i < x.length; i++) {\n" +
+                        "     x[i].style.display = 'none';\n" +
+                        "  }})()");
             }
         });
         ViewGroup videoLayout = (ViewGroup) findViewById(R.id.videoLayout); // Your own view, read class comments

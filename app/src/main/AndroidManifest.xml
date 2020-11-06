@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jlab.teveo">
+    package="jlab.website">
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WebSiteActivity"
+            android:name="jlab.website.WebSiteActivity"
             android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
